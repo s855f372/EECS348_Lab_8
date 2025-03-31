@@ -1,5 +1,9 @@
 #include "matrix.hpp"
 #include <iostream>
+#include <fstream>
+#include <stdexcept>
+#include <string>
+#include <iomanip>
 
 // implementation of functions declared in matrix.hpp goes here
 // function definitions for a class have their names prefixed with
@@ -53,13 +57,20 @@ Matrix Matrix::operator*(const Matrix &rhs) const
 // Set a value in matrix
 void Matrix::set_value(std::size_t i, std::size_t j, int n)
 {
+    if (i >= size || j >= size)
+    {
+        throw std::out_of_range("[Index is Out of Bounds]");
+    }
     matrix[i][j] = n;
 }
 
 // Return a value in matrix
 int Matrix::get_value(std::size_t i, std::size_t j) const
 {
-
+    if (i >= size || j >= size)
+    {
+        throw std::out_of_range("[Index is Out of Bounds]");
+    }
     return matrix[i][j];
 }
 
@@ -94,12 +105,20 @@ int Matrix::sum_diagonal_minor() const
 // Swap rows of matrix
 void Matrix::swap_rows(std::size_t r1, std::size_t r2)
 {
+    if (r1 >= size || r2 >= size)
+    {
+        throw std::out_of_range("[Index is Out of Bounds]");
+    }
     std::swap(matrix[r1], matrix[r2]);
 }
 
 // Swap columns of matrix
 void Matrix::swap_cols(std::size_t c1, std::size_t c2)
 {
+    if (c1 >= size || c2 >= size)
+    {
+        throw std::out_of_range("[Index is Out of Bounds]");
+    }
     for (int i = 0; i < size; i++)
     {
         std::swap(matrix[i][c1], matrix[i][c2]);
@@ -113,7 +132,7 @@ void Matrix::print_matrix() const
     {
         for (int j = 0; j < size; j++)
         {
-            std::cout << matrix[i][j] << " ";
+            std::cout << std::setw(4) << matrix[i][j] << " ";
         }
 
         std::cout << std::endl;

@@ -8,10 +8,9 @@ int main(int argc, char *argv[])
     
     // 1. Read values from a file into the matrix:
 
-    std::string fileName = "test.txt";
-    //std::cout << "Input File Name: "
-    //std:cin >> fileName;
-
+    std::string fileName;
+    std::cout << "Input File Name: ";
+    std::cin >> fileName;
     std::ifstream file(fileName);
 
     int N;
@@ -93,6 +92,32 @@ int main(int argc, char *argv[])
     A_swapCol.print_matrix();
 
     // 7. Update matrix rows and display the result:
+    char matrix;
+    int row_x, col_x, new_val;
+    std::cout << "Input Matrix, Row Index, Column Index, and New Value:\nMatrix: ";
+    std::cin >> matrix;
+    std::cout << "Row Index: ";
+    std::cin >> row_x;
+    std::cout << "Column Index: ";
+    std::cin >> col_x;
+    std::cout << "New Value: ";
+    std::cin >> new_val;
+    if (matrix == 'A' || matrix == 'a')
+    {
+        A.set_value(row_x, col_x, new_val);
+        std::cout << "\nUpdated Matrix A:" << std::endl;
+        A.print_matrix();
+    }
+    else if (matrix == 'B' || matrix == 'b')
+    {
+        B.set_value(row_x, col_x, new_val);
+        std::cout << "\nUpdated Matrix B:" << std::endl;
+        B.print_matrix();
+    }
+    else
+    {
+        std::cout << "[ERROR: Invalid Matrix]";
+    }
 
     return 0;
 }
