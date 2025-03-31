@@ -5,6 +5,11 @@
 #include <vector>
 
 class Matrix {
+
+private:
+    int size;
+    std::vector<std::vector<int>> matrix;
+
 public:
     Matrix(std::size_t N);
     Matrix(std::vector<std::vector<int>> nums);
