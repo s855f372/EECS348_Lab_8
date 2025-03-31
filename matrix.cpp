@@ -5,30 +5,108 @@
 // function definitions for a class have their names prefixed with
 // the class name and "::"
 
-// initialize an empty NxN matrix
+// Initialize an empty NxN matrix
 Matrix::Matrix(size_t N)
 {
     size = N;
     matrix.resize(N, std::vector<int>(size, 0));
 }
 
-// Load a matrix based on user input
+// Load a matrix based on inputted matrix
 Matrix::Matrix(std::vector<std::vector<int>> nums)
 {
+    size = nums.size();
     matrix = nums;
 } 
 
+// Returns sum of two matrices
 Matrix Matrix::operator+(const Matrix &rhs) const
 {
-    return matrix;
+    Matrix sum = Matrix(size);
+    for (int i = 0; i < size; i++)
+    {
+        for (int j = 0; j < size; j++)
+        {
+            sum.matrix[i][j] = matrix[i][j] + rhs.matrix[i][j];
+        }
+    }
+    return sum;
 }
 
+// Returns product of two matrices
 Matrix Matrix::operator*(const Matrix &rhs) const
 {
-    return matrix;
+    Matrix product = Matrix(size);
+    for (int i = 0; i < size; i++)
+    {
+        for (int j = 0; j < size; j++)
+        {
+           for (int k = 0; k < size; k++)
+           {
+                product.matrix[i][j] += matrix[i][k] * rhs.matrix[k][j];
+           }
+        }
+    }
+    return product;
 }
 
-// print out the matrix
+// Set a value in matrix
+void Matrix::set_value(std::size_t i, std::size_t j, int n)
+{
+    matrix[i][j] = n;
+}
+
+// Return a value in matrix
+int Matrix::get_value(std::size_t i, std::size_t j) const
+{
+
+    return matrix[i][j];
+}
+
+// Return size
+int Matrix::get_size() const
+{
+    return size;
+}
+
+// Return sum of top left -> bottom right diagonal
+int Matrix::sum_diagonal_major() const
+{
+    int sum = 0;
+    for (int i = 0; i < size; i++)
+    {
+        sum += matrix[i][i];
+    }
+    return sum;
+}
+
+// Return sum of top right -> bottom left diagonal
+int Matrix::sum_diagonal_minor() const
+{
+    int sum = 0;
+    for (int i = 0; i < size; i++)
+    {
+        sum += matrix[i][size - 1 - i];
+    }
+    return sum;
+}
+
+// Swap rows of matrix
+void Matrix::swap_rows(std::size_t r1, std::size_t r2)
+{
+    std::swap(matrix[r1], matrix[r2]);
+}
+
+// Swap columns of matrix
+void Matrix::swap_cols(std::size_t c1, std::size_t c2)
+{
+    for (int i = 0; i < size; i++)
+    {
+        std::swap(matrix[i][c1], matrix[i][c2]);
+    }
+}
+
+// Print out matrix
 void Matrix::print_matrix() const 
 {
     for (int i = 0; i < size; i++)
@@ -40,40 +118,6 @@ void Matrix::print_matrix() const
 
         std::cout << std::endl;
     }
-}
 
-void Matrix::set_value(std::size_t i, std::size_t j, int n)
-{
-    matrix[i][j] = n;
-}
-
-int Matrix::get_value(std::size_t i, std::size_t j) const
-{
-
-    return matrix[i][j];
-}
-
-int Matrix::get_size() const
-{
-    return size;
-}
-
-int Matrix::sum_diagonal_major() const
-{
-    return 0;
-}
-
-int Matrix::sum_diagonal_minor() const
-{
-    return 0;
-}
-
-void Matrix::swap_rows(std::size_t r1, std::size_t r2)
-{
-
-}
-
-void Matrix::swap_cols(std::size_t c1, std::size_t c2)
-{
-
+    std::cout << std::endl;
 }
